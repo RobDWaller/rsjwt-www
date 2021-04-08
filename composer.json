@@ -1,0 +1,17 @@
+{
+    "name": "rbdwllr/token-builder",
+    "description": "A JWT Token Builder Tool.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rob Waller",
+            "email": "rdwaller1984@gmail.com"
+        }
+    ],
+    "require": {
+        "bref/bref": "^1.2",
+        "slim/slim": "^4.7",
+        "slim/psr7": "^1.3"
+    }
+}
