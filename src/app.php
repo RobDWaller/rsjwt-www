@@ -2,6 +2,7 @@
 
 namespace RSJWT;
 
+use ReallySimpleJWT\Token;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App as SlimApp;
@@ -20,14 +21,14 @@ class App
         $this->app->addErrorMiddleware(true, true, true);
 
         $this->app->get('/', function (Request $request, Response $response) {
-            $response->getBody()->write('<a href="/hello/world">Try /hello/world</a>');
+            $response->getBody()->write('<a href="/api/token">Try /api/token</a>');
             return $response;
         });
 
-        $this->app->get('/hello/{name}', function (Request $request, Response $response, $args) {
-            $name = $args['name'];
-            $response->getBody()->write("Hello, $name");
-            return $response;
+        $this->app->get('/api/token', function (Request $request, Response $response) {
+            $token = Token::create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
+            $response->getBody()->write(json_encode(['token' => $token]));
+            return $response->withHeader('Content-Type', 'application/json');;
         });
         
         $this->app->run();
