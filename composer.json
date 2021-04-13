@@ -10,8 +10,19 @@
         }
     ],
     "require": {
+        "php": "^7.4",
         "bref/bref": "^1.2",
         "slim/slim": "^4.7",
         "slim/psr7": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "RSJWT\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     }
 }
