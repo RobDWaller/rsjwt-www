@@ -1,5 +1,5 @@
 {
-    "name": "rbdwllr/token-builder",
+    "name": "rbdwllr/rsjwt-www",
     "description": "A JWT Token Builder Tool.",
     "type": "project",
     "license": "MIT",
