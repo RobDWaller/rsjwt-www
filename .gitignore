@@ -4,3 +4,4 @@ Dockerfile
 composer.lock
 .serverless
 .phpunit.cache/
+stack.json
