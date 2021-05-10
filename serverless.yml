@@ -7,6 +7,12 @@ provider:
 
 plugins:
     - ./vendor/bref/bref
+    - serverless-stack-output
+
+custom:
+    output:
+        handler: scripts/output.handler
+        file: stack.json
 
 functions:
     api:
