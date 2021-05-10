@@ -28,5 +28,5 @@ jobs:
     - name: Install Composer Dependencies
       run: composer install --no-interaction --prefer-dist
 
-    - name: Run Tests
+    - name: Run Static Analysis
       run: composer run-script pipeline
