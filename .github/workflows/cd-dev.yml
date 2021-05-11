@@ -35,3 +35,9 @@ jobs:
 
     - name: Install Serverless
       run: npm install -g serverless
+
+    - name: Install Serverless Stack Output
+      run: npm install -g serverless-stack-output
+
+    - name: Install JQ
+      run: apt-get install -y jq
