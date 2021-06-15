@@ -26,7 +26,7 @@ jobs:
       run: composer validate --strict
 
     - name: Install Composer Dependencies
-      run: composer install --no-interaction --prefer-dist
+      run: composer install --no-interaction --prefer-dist --no-dev
 
     - name: Setup Node
       uses: actions/setup-node@v2
