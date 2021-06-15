@@ -40,4 +40,4 @@ jobs:
       run: npm install -g serverless-stack-output
 
     - name: Install JQ
-      run: apt-get install -y jq
+      run: sudo apt-get install -y jq
