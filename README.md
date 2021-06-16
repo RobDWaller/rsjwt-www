@@ -20,6 +20,10 @@ serverless config credentials --provider aws --key <key> --secret <secret>
 serverless deploy
 
 serverless remove
+
+serverless deploy -s dev
+
+serverless info -s dev
 ```
 
 ## JQ Commands
