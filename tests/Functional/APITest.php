@@ -3,6 +3,7 @@
 namespace Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
+use Dotenv\Dotenv;
 
 class APITest extends TestCase
 {
@@ -13,6 +14,9 @@ class APITest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv->safeLoad();
 
         $this->baseUrl = $_SERVER['TEST_URL'] ?? 'http://localhost';
         $this->port = $_SERVER['TEST_PORT'] ?? '80';
