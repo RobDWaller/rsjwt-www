@@ -47,3 +47,6 @@ jobs:
 
     - name: Serverless Deploy
       run: serverless deploy -s dev
+
+    - name: Create Dot Env File
+      run: bash scripts/testurl.sh
