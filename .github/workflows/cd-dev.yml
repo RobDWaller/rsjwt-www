@@ -50,3 +50,9 @@ jobs:
 
     - name: Create Dot Env File
       run: bash scripts/testurl.sh
+    
+    - name: Install Composer Dev Dependencies
+      run: composer update --no-interaction --prefer-dist
+
+    - name: Run Functional Tests
+      run: vendor/bin/phpunit tests/Functional
