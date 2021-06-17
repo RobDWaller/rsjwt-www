@@ -56,3 +56,6 @@ jobs:
 
     - name: Run Functional Tests
       run: vendor/bin/phpunit tests/Functional
+
+    - name: Serverless Remove
+      run: serverless remove -s dev
