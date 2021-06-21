@@ -29,7 +29,6 @@ class App
             $token = Token::create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
             $response->getBody()->write((string) json_encode(['token' => $token]));
             return $response->withHeader('Content-Type', 'application/json');
-            ;
         });
 
         $this->app->run();
