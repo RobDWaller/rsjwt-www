@@ -13,8 +13,11 @@
          verbose="true"
          colors="true">
     <testsuites>
-        <testsuite name="default">
-            <directory suffix="Test.php">tests</directory>
+        <testsuite name="unit">
+            <directory suffix=".php">./tests/Unit/</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory suffix=".php">./tests/Functional/</directory>
         </testsuite>
     </testsuites>
 
