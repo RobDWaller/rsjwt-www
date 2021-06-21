@@ -36,7 +36,8 @@
     "scripts": {
         "pipeline": [
             "vendor/bin/phpcs --standard=psr12 src/ tests/",
-            "vendor/bin/phpstan analyse -l 8 src/ tests/"
+            "vendor/bin/phpstan analyse -l 8 src/ tests/",
+            "vendor/bin/phpunit --testsuite unit"
         ]
     }
 }
