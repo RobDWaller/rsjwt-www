@@ -25,9 +25,9 @@ class APITest extends TestCase
     public function testGetToken(): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
-        $response = $client->request('GET', $this->baseUrl . '/api/token');
+        $response = $client->request('POST', $this->baseUrl . '/api/token');
 
-        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame(201, $response->getStatusCode());
         $this->assertStringContainsString('application/json', $response->getHeaderLine('content-type'));
 
         $body = json_decode($response->getBody());
