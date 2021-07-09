@@ -22,7 +22,7 @@ class APITest extends TestCase
         $this->port = $_SERVER['TEST_PORT'] ?? '80';
     }
 
-    public function testAPIToken(): void
+    public function testGetToken(): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $response = $client->request('GET', $this->baseUrl . '/api/token');
