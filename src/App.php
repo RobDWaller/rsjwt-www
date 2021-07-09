@@ -26,7 +26,8 @@ class App
         });
 
         $this->app->post('/api/token', function (Request $request, Response $response) {
-            $jwt = JWTFactory::create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
+            $factory = new JWTFactory();
+            $jwt = $factory->create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
             $response->getBody()->write((string) json_encode(['token' => $jwt->getToken()]));
             $response = $response->withStatus(201);
             return $response->withHeader('Content-Type', 'application/json');
