@@ -2,7 +2,7 @@
 
 namespace RSJWT;
 
-use ReallySimpleJWT\Token;
+use RSJWT\JWT\JWTFactory;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App as SlimApp;
@@ -25,9 +25,10 @@ class App
             return $response;
         });
 
-        $this->app->get('/api/token', function (Request $request, Response $response) {
-            $token = Token::create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
-            $response->getBody()->write((string) json_encode(['token' => $token]));
+        $this->app->post('/api/token', function (Request $request, Response $response) {
+            $jwt = JWTFactory::create(1, '!secReT$123*', time() + 30, $_SERVER['HTTP_HOST']);
+            $response->getBody()->write((string) json_encode(['token' => $jwt->getToken()]));
+            $response = $response->withStatus(201);
             return $response->withHeader('Content-Type', 'application/json');
         });
 
