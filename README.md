@@ -6,7 +6,10 @@
 docker-compose up -d
 
 docker-compose exec rsjwt-www bash
+
+php -S 0.0.0.0:80
 ```
+Visit [localhost:8080](http://localhost:8080)
 
 ## Serverless Configuration
 
