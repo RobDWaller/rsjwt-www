@@ -26,7 +26,7 @@ class JWTFactory
             ->setIssuer($issuer)
             ->setSecret($secret)
             ->build();
-            
+
         return new JWT($jwt->getToken(), $secret);
     }
 }
