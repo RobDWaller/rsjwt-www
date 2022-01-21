@@ -19,14 +19,13 @@ class JWTFactory
     /**
      * @param mixed $id
      */
-    public function create($id, string $secret, int $expiration, string $issuer): JWT
+    public function create($id, int $expiration, string $issuer): JWT
     {
         $jwt = $this->build->setJwtId($id)
             ->setExpiration($expiration)
             ->setIssuer($issuer)
-            ->setSecret($secret)
             ->build();
 
-        return new JWT($jwt->getToken(), $secret);
+        return new JWT($jwt->getToken());
     }
 }
