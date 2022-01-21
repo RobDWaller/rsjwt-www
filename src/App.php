@@ -20,7 +20,9 @@ class App
         $this->app->addErrorMiddleware(true, true, true);
 
         $this->app->get('/', function (Request $request, Response $response) {
-            $response->getBody()->write('<a href="/api/token">Try /api/token</a>');
+            $response->getBody()->write('<form method="post" action="/api/token">' .
+                '<input type="submit" value="Try api/token"/>' .            
+            '</form>');
             return $response;
         });
 
