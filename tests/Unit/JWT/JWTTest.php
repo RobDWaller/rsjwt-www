@@ -9,7 +9,7 @@ class JWTTest extends TestCase
 {
     public function testGetToken(): void
     {
-        $jwt = new JWT('abc.def.ghi', 'secret');
+        $jwt = new JWT('abc.def.ghi');
 
         $this->assertSame('abc.def.ghi', $jwt->getToken());
     }

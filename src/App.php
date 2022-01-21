@@ -21,7 +21,7 @@ class App
 
         $this->app->get('/', function (Request $request, Response $response) {
             $response->getBody()->write('<form method="post" action="/api/token">' .
-                '<input type="submit" value="Try api/token"/>' .            
+                '<input type="submit" value="Try api/token"/>' .
             '</form>');
             return $response;
         });
