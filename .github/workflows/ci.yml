@@ -23,7 +23,7 @@ jobs:
         coverage: xdebug
 
     - name: Validate Composer
-      run: composer validate --strict
+      run: composer validate
 
     - name: Install Composer Dependencies
       run: composer install --no-interaction --prefer-dist
