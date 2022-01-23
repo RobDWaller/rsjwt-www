@@ -22,7 +22,7 @@ class APITest extends TestCase
         $this->port = $_SERVER['TEST_PORT'] ?? '80';
     }
 
-    public function testGetToken(): void
+    public function testGetToken(): object
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $response = $client->request('POST', $this->baseUrl . '/api/token');
@@ -36,5 +36,23 @@ class APITest extends TestCase
             '/^[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+$/',
             $body->token
         );
+
+        return $body;
+    }
+
+    /**
+     * @depends testGetToken
+     */
+    public function testValidateToken(object $body): void
+    {
+        $client = new \GuzzleHttp\Client(['port' => $this->port]);
+        $response = $client->request('GET', $this->baseUrl . '/api/automata');
+
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertStringContainsString('application/json', $response->getHeaderLine('content-type'));
+
+        $body = json_decode($response->getBody());
+
+        $this->assertCount(5, $body->automata);
     }
 }

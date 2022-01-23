@@ -34,6 +34,16 @@ class App
             return $response->withHeader('Content-Type', 'application/json');
         });
 
+        $this->app->get('/api/automata', function (Request $request, Response $response) {
+            $automata = $this->get('automata');
+
+            $response->getBody()->write((string) json_encode([
+                'automata' => $automata->generate(110, 4, '01010')->toArray()
+            ]));
+            $response = $response->withStatus(200);
+            return $response->withHeader('Content-Type', 'application/json');
+        });
+
         $this->app->run();
     }
 }
