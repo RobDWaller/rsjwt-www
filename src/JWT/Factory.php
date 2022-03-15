@@ -7,7 +7,7 @@ namespace RSJWT\JWT;
 use ReallySimpleJWT\Jwt;
 use ReallySimpleJWT\Build;
 
-class JWTFactory
+class Factory
 {
     private Build $build;
 

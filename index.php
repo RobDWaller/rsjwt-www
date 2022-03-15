@@ -3,7 +3,7 @@
 use DI\Container;
 use RSJWT\App;
 use Slim\Factory\AppFactory;
-use RSJWT\JWT\JWTFactory;
+use RSJWT\JWT\Factory;
 use ReallySimpleJWT\Build;
 use ReallySimpleJWT\Helper\Validator;
 use ReallySimpleJWT\Encoders\EncodeHS256Strong;
@@ -15,7 +15,7 @@ $container = new Container();
 
 $container->set('jwtFactory', function () {
     $build = new Build('JWT', new Validator(), new EncodeHS256Strong('!secReT$123*'));
-    return new JWTFactory($build);
+    return new Factory($build);
 });
 
 $container->set('automata', function ($initialState, $rule) {
