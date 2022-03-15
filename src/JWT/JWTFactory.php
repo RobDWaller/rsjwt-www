@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RSJWT\JWT;
 
-use RSJWT\JWT\JWT;
+use ReallySimpleJWT\Jwt;
 use ReallySimpleJWT\Build;
 
 class JWTFactory
@@ -19,13 +19,11 @@ class JWTFactory
     /**
      * @param mixed $id
      */
-    public function create($id, int $expiration, string $issuer): JWT
+    public function create($id, int $expiration, string $issuer): Jwt
     {
-        $jwt = $this->build->setJwtId($id)
+        return $this->build->setJwtId($id)
             ->setExpiration($expiration)
             ->setIssuer($issuer)
             ->build();
-
-        return new JWT($jwt->getToken());
     }
 }

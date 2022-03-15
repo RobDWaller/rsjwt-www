@@ -4,7 +4,7 @@ namespace Tests\Unit\JWT;
 
 use PHPUnit\Framework\TestCase;
 use RSJWT\JWT\JWTFactory;
-use RSJWT\JWT\JWT;
+use ReallySimpleJWT\Jwt;
 use ReallySimpleJWT\Build;
 use ReallySimpleJWT\Helper\Validator;
 use ReallySimpleJWT\Encoders\EncodeHS256;
@@ -19,6 +19,6 @@ class JWTFactoryTest extends TestCase
 
         $jwt = $factory->create("1", time() + 30, 'localhost');
 
-        $this->assertInstanceOf(JWT::class, $jwt);
+        $this->assertInstanceOf(Jwt::class, $jwt);
     }
 }
