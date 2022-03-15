@@ -43,7 +43,7 @@ class APITest extends TestCase
     /**
      * @depends testGetToken
      */
-    public function testValidateToken(object $body): void
+    public function testGetAutomata(object $body): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $response = $client->request('GET', $this->baseUrl . '/api/automata');
