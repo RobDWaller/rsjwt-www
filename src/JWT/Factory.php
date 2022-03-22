@@ -6,22 +6,18 @@ namespace RSJWT\JWT;
 
 use ReallySimpleJWT\Jwt;
 use ReallySimpleJWT\Build;
+use ReallySimpleJWT\Helper\Validator;
+use ReallySimpleJWT\Encoders\EncodeHS256;
 
 class Factory
 {
-    private Build $build;
-
-    public function __construct(Build $build)
-    {
-        $this->build = $build;
-    }
-
     /**
      * @param mixed $id
      */
-    public function create($id, int $expiration, string $issuer): Jwt
+    public function create($id, string $secret, int $expiration, string $issuer): Jwt
     {
-        return $this->build->setJwtId($id)
+        $build = new Build('JWT', new Validator(), new EncodeHS256($secret));
+        return $build->setJwtId($id)
             ->setExpiration($expiration)
             ->setIssuer($issuer)
             ->build();
