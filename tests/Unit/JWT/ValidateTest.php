@@ -23,6 +23,20 @@ class ValidateTest extends TestCase
 
         $validate = new Validate();
 
-        $this->assertTrue($validate->token($token));
+        $this->assertTrue($validate->token($token, '!secReT$123*'));
+    }
+
+    public function testValidateTokenFail(): void
+    {
+        $build = new Build('JWT', new Validator(), new EncodeHS256('!secReT$123*'));
+
+        $token = $build->setJwtId("1")
+            ->setPayloadClaim("exp", time() - 20)
+            ->setIssuer('localhost')
+            ->build();
+
+        $validate = new Validate();
+
+        $this->assertFalse($validate->token($token, '!secReT$123*'));
     }
 }
