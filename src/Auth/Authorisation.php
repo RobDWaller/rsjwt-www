@@ -16,7 +16,7 @@ class Authorisation
 {
     private $secret;
 
-    public function __construct(string $secret) 
+    public function __construct(string $secret)
     {
         $this->secret = $secret;
     }
@@ -29,8 +29,7 @@ class Authorisation
             if ($validate->token($jwt, $this->secret)) {
                 return $handler->handle($request);
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $response = new Response();
             $response = $response->withStatus(401);
             $response->getBody()->write((string) json_encode([

@@ -25,8 +25,8 @@ class AuthorisationTest extends TestCase
             ->with('authorization')
             ->willReturn(['Bearer ' . $token->getToken()]);
 
-        $response = $this->createMock(Response::class);    
-        
+        $response = $this->createMock(Response::class);
+
         $handler = $this->createMock(RequestHandler::class);
         $handler->expects($this->once())
             ->method('handle')
@@ -47,7 +47,7 @@ class AuthorisationTest extends TestCase
             ->willReturn(['Bearer ']);
 
         $handler = $this->createMock(RequestHandler::class);
-        
+
         $response = $authorisation($request, $handler);
         $this->assertSame(401, $response->getStatusCode());
         $this->assertSame('Token has an invalid structure.', json_decode($response->getBody())->message);
@@ -64,7 +64,7 @@ class AuthorisationTest extends TestCase
             ->willReturn(['Bearer abc.def.hij']);
 
         $handler = $this->createMock(RequestHandler::class);
-        
+
         $response = $authorisation($request, $handler);
         $this->assertSame(401, $response->getStatusCode());
         $this->assertSame('Could not validate token.', json_decode($response->getBody())->message);

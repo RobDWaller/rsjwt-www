@@ -47,7 +47,11 @@ class APITest extends TestCase
     public function testGetAutomata(object $body): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
-        $response = $client->request('GET', $this->baseUrl . '/api/automata', ['headers' => ['authorization' => 'Bearer ' . $body->token]]);
+        $response = $client->request(
+            'GET',
+            $this->baseUrl . '/api/automata',
+            ['headers' => ['authorization' => 'Bearer ' . $body->token]]
+        );
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertStringContainsString('application/json', $response->getHeaderLine('content-type'));
@@ -62,7 +66,11 @@ class APITest extends TestCase
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Could not validate token.');
-        $client->request('GET', $this->baseUrl . '/api/automata', ['headers' => ['authorization' => 'Bearer abc.def.ghi']]);
+        $client->request(
+            'GET',
+            $this->baseUrl . '/api/automata',
+            ['headers' => ['authorization' => 'Bearer abc.def.ghi']]
+        );
     }
 
     public function testGetAutomataFailNoToken(): void

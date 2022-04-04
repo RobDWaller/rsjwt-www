@@ -19,7 +19,7 @@ class Validate
         $parse = new Parse($token, new Decode());
 
         $validate = new RSJValidate(
-            $parse->parse(),  
+            $parse->parse(),
             new EncodeHS256($secret),
             new Validator()
         );
@@ -27,8 +27,7 @@ class Validate
         try {
             $validate->signature()->expiration();
             return true;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
