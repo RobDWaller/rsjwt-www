@@ -4,6 +4,7 @@ namespace Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
+use Psr\Http\Message\ResponseInterface;
 use Exception;
 
 class APITest extends TestCase
@@ -23,7 +24,7 @@ class APITest extends TestCase
         $this->port = $_SERVER['TEST_PORT'] ?? '80';
     }
 
-    public function testGetToken(): object
+    public function testGetToken(): ResponseInterface
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $response = $client->request('POST', $this->baseUrl . '/api/token');
@@ -31,26 +32,24 @@ class APITest extends TestCase
         $this->assertSame(201, $response->getStatusCode());
         $this->assertStringContainsString('application/json', $response->getHeaderLine('content-type'));
 
-        $body = json_decode($response->getBody());
-
         $this->assertMatchesRegularExpression(
             '/^[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+\.[a-zA-Z0-9\-\_\=]+$/',
-            $body->token
+            json_decode($response->getBody())->token
         );
 
-        return $body;
+        return $response;
     }
 
     /**
      * @depends testGetToken
      */
-    public function testGetAutomata(object $body): void
+    public function testGetAutomata(ResponseInterface $response): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
         $response = $client->request(
             'GET',
             $this->baseUrl . '/api/automata',
-            ['headers' => ['authorization' => 'Bearer ' . $body->token]]
+            ['headers' => ['authorization' => 'Bearer ' . json_decode($response->getBody())->token]]
         );
 
         $this->assertSame(200, $response->getStatusCode());
