@@ -14,8 +14,7 @@ require __DIR__ . '/vendor/autoload.php';
 $container = new Container();
 
 $container->set('jwtFactory', function () {
-    $build = new Build('JWT', new Validator(), new EncodeHS256Strong('!secReT$123*'));
-    return new Factory($build);
+    return new Factory('');
 });
 
 $container->set('automata', function ($initialState, $rule) {
