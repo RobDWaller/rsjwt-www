@@ -4,6 +4,7 @@ namespace Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
 use Dotenv\Dotenv;
+use Exception;
 
 class APITest extends TestCase
 {
@@ -46,7 +47,7 @@ class APITest extends TestCase
     public function testGetAutomata(object $body): void
     {
         $client = new \GuzzleHttp\Client(['port' => $this->port]);
-        $response = $client->request('GET', $this->baseUrl . '/api/automata');
+        $response = $client->request('GET', $this->baseUrl . '/api/automata', ['headers' => ['authorization' => 'Bearer ' . $body->token]]);
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertStringContainsString('application/json', $response->getHeaderLine('content-type'));
@@ -54,5 +55,21 @@ class APITest extends TestCase
         $body = json_decode($response->getBody());
 
         $this->assertCount(5, $body->automata);
+    }
+
+    public function testGetAutomataFailInvalidToken(): void
+    {
+        $client = new \GuzzleHttp\Client(['port' => $this->port]);
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Could not validate token.');
+        $client->request('GET', $this->baseUrl . '/api/automata', ['headers' => ['authorization' => 'Bearer abc.def.ghi']]);
+    }
+
+    public function testGetAutomataFailNoToken(): void
+    {
+        $client = new \GuzzleHttp\Client(['port' => $this->port]);
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Token has an invalid structure.');
+        $client->request('GET', $this->baseUrl . '/api/automata');
     }
 }
