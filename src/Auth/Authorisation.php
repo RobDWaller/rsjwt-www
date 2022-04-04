@@ -14,7 +14,7 @@ use Exception;
 
 class Authorisation
 {
-    private $secret;
+    private string $secret;
 
     public function __construct(string $secret)
     {
