@@ -2,6 +2,7 @@
 
 namespace RSJWT;
 
+use RSJWT\Auth\Authorisation;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App as SlimApp;
@@ -28,7 +29,7 @@ class App
 
         $this->app->post('/api/token', function (Request $request, Response $response) {
             $factory = $this->get('jwtFactory');
-            $jwt = $factory->create("1", time() + 30, $_SERVER['HTTP_HOST']);
+            $jwt = $factory->create("1", '', time() + 30, $_SERVER['HTTP_HOST']);
             $response->getBody()->write((string) json_encode(['token' => $jwt->getToken()]));
             $response = $response->withStatus(201);
             return $response->withHeader('Content-Type', 'application/json');
@@ -42,7 +43,7 @@ class App
             ]));
             $response = $response->withStatus(200);
             return $response->withHeader('Content-Type', 'application/json');
-        });
+        })->add(new Authorisation(''));
 
         $this->app->run();
     }
