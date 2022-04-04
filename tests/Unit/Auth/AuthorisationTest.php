@@ -36,7 +36,7 @@ class AuthorisationTest extends TestCase
         $this->assertInstanceOf(Response::class, $authorisation($request, $handler));
     }
 
-    public function testAuthorisationFailure(): void
+    public function testAuthorisationFailureNoToken(): void
     {
         $authorisation = new Authorisation('HelloWorld123!');
 
@@ -44,12 +44,29 @@ class AuthorisationTest extends TestCase
         $request->expects($this->once())
             ->method('getHeader')
             ->with('authorization')
-            ->willReturn(['Bearer:']);
+            ->willReturn(['Bearer ']);
 
         $handler = $this->createMock(RequestHandler::class);
         
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage("Token has an invalid structure.");
-        $authorisation($request, $handler);
+        $response = $authorisation($request, $handler);
+        $this->assertSame(401, $response->getStatusCode());
+        $this->assertSame('Token has an invalid structure.', json_decode($response->getBody())->message);
+    }
+
+    public function testAuthorisationFailureInvalidToken(): void
+    {
+        $authorisation = new Authorisation('HelloWorld123!');
+
+        $request = $this->createMock(Request::class);
+        $request->expects($this->once())
+            ->method('getHeader')
+            ->with('authorization')
+            ->willReturn(['Bearer abc.def.hij']);
+
+        $handler = $this->createMock(RequestHandler::class);
+        
+        $response = $authorisation($request, $handler);
+        $this->assertSame(401, $response->getStatusCode());
+        $this->assertSame('Could not validate token.', json_decode($response->getBody())->message);
     }
 }
