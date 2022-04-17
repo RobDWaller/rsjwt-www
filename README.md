@@ -1,4 +1,5 @@
 # ReallySimpleJWT Website
+[![Actions Status](https://github.com/robdwaller/rsjwt-www/workflows/ci/badge.svg)](https://github.com/robdwaller/rsjwt-www/actions) [![Actions Status](https://github.com/robdwaller/rsjwt-www/workflows/cd%20dev/badge.svg)](https://github.com/robdwaller/rsjwt-www/actions)
 
 ## Run Locally
 
